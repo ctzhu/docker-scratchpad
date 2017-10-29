@@ -30,7 +30,7 @@ RUN apt-get install -y curl grep sed dpkg && \
 
 RUN /opt/conda/bin/conda install pandas ipython s3fs -y
 RUN /opt/conda/bin/conda clean -all -y
-RUN /opt/conda/bin/pip install awscli
+RUN /opt/conda/bin/pip install awscli ortools
 
 RUN echo 'import mipcl_py.mipshell as mipshell' >> ~/src/mipcl/mipcl_py/__init__.py && \
     echo 'import mipcl_py.models as models' >> ~/src/mipcl/mipcl_py/__init__.py && \
