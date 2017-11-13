@@ -1,7 +1,7 @@
 FROM debian:stretch
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
-ADD togglecursor.vim /usr/share/vim/nvim/runtime/plugin/togglecursor.vim
+ADD togglecursor.vim /usr/share/nvim/runtime/plugin/togglecursor.vim
 ADD screenrc /root/.screenrc
 ADD bashrc /root/.bashrc
 ADD test.py /root/test.py
