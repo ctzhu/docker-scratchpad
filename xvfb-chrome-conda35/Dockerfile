@@ -3,7 +3,7 @@ FROM debian:stretch
 RUN apt-get update && apt-get install -y curl xvfb chromium neovim screen unzip libgconf-2-4
 
 ADD xvfb-chromium /usr/bin/xvfb-chromium
-ADD togglecursor.vim /usr/share/vim/nvim/runtime/plugin/togglecursor.vim
+ADD togglecursor.vim /usr/share/nvim/runtime/plugin/togglecursor.vim
 ADD screenrc /root/.screenrc
 ADD bashrc /root/.bashrc
 RUN ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome
