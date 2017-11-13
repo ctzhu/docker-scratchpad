@@ -2,7 +2,7 @@ FROM debian:stretch
 
 RUN apt-get update && apt-get install -y curl neovim screen unzip libgconf-2-4
 
-ADD togglecursor.vim /usr/share/vim/nvim/runtime/plugin/togglecursor.vim
+ADD togglecursor.vim /usr/share/nvim/runtime/plugin/togglecursor.vim
 ADD screenrc /root/.screenrc
 ADD bashrc /root/.bashrc
 
