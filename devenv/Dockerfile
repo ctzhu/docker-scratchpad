@@ -3,6 +3,7 @@ FROM ubuntu:xenial
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 ADD https://raw.githubusercontent.com/ctzhu/docker-scratchpad/master/firefox-conda35/bashrc /root/.bashrc
+ADD https://raw.githubusercontent.com/ctzhu/nvimfiles/master/init.vim /root/.config/nvim/init.vim
 ADD https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim /root/.config/nvim/autoload/plug.vim
 ADD https://tpo.pe/pathogen.vim /root/.config/nvim/autoload/pathogen.vim
 ADD http://download.eclipse.org/jdtls/snapshots/jdt-language-server-0.24.0-201808202217.tar.gz /root/src/jdtls/jdtls.tar.gz
@@ -27,7 +28,8 @@ RUN apt-get update --fix-missing && \
     apt-get clean
 
 RUN /opt/conda/bin/conda config --append channels r && \
-    /opt/conda/bin/conda install r-essentials ipython pandas numpy scipy jupyter matplotlib openjdk maven nodejs -y && \
+    /opt/conda/bin/conda update conda -y && \
+    /opt/conda/bin/conda install mro-base r-callr r-jsonlite r-lintr r-R6 r-repr r-stringr r-crayon r-rlang r-assertthat r-pillar r-processx r-backports r-cli r-purrr r-rprojroot r-tibble r-withr ipython pandas numpy scipy jupyter matplotlib openjdk maven nodejs mkl -y && \
     /usr/bin/pip install neovim && \
     /opt/conda/bin/pip install neovim awscli python-language-server python-language-server[all] && \
     /opt/conda/bin/conda clean -all -y && \
@@ -46,14 +48,8 @@ RUN echo "#!/bin/bash" >> /usr/bin/jdtls && \
     echo "    -noverify \\" >> /usr/bin/jdtls && \
     echo "    -Xmx1G \\" >> /usr/bin/jdtls && \
     echo "    -jar \$server/plugins/org.eclipse.equinox.launcher_\$version.jar \\" >> /usr/bin/jdtls && \
-    echo "    -configuration \$server/config_linux -data ~ \$@" >> /usr/bin/jdtls
-
-RUN echo "let g:python_host_prog = '/usr/bin/python'" >> /root/.config/nvim/init.vim && \
-    echo "let g:python3_host_prog = '/opt/conda/bin/python'" >> /root/.config/nvim/init.vim && \
-    echo "let g:LanguageClient_serverCommands = {'python': ['/opt/conda/bin/pyls']," >> /root/.config/nvim/init.vim && \
-    echo "\\ 'java': ['/usr/bin/jdtls']," >> /root/.config/nvim/init.vim && \
-    echo "\\ 'r': ['R', '--quiet', '--slave', '-e', 'languageserver::run()']}" >> /root/.config/nvim/init.vim && \
-    chmod +x /usr/bin/jdtls && \ 
+    echo "    -configuration \$server/config_linux -data ~ \$@" >> /usr/bin/jdtls && \
+    chmod +x /usr/bin/jdtls && \
     chmod +x /usr/bin/nvim
 
 ENV PATH /opt/conda/bin:$PATH
